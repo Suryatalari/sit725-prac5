@@ -19,7 +19,7 @@ let add_two_numbers = function(number1,number2){
     return result
 }
 
-// respond with summation of 2 numbers
+// respond with summation of 2 numbers.
 rest_api.get('/addition',function(request, response){
     let number_1 = parseFloat(request.query.number1)
     let number_2 = parseFloat(request.query.number2)
