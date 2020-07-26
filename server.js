@@ -23,6 +23,9 @@ let add_two_numbers = function(number1,number2){
 rest_api.get('/addition', function(request, response){
     let number_1 = parseFloat(request.query.number1)
     let number_2 = parseFloat(request.query.number2)
+    if(isNaN(number_1) || isNaN(number_2)){
+        response.send("Please enter numbers.")
+    }
     console.log("The first number is:", number_1)
     console.log("The second number is:", number_2)
     let Total = add_two_numbers(number_1, number_2)
@@ -37,6 +40,7 @@ let accounts = [
     {id:2,name:'sarah',deposit:5},
     {id:3,name:'jim',deposit:15}
     ]
+// for loop for iterating through the array.
 for(i = 0; i < accounts.length; i += 1){
     if(name == accounts[i].name && id == accounts[i].id) {
         return accounts[i].deposit
