@@ -13,7 +13,7 @@ rest_api.get('/hello', function(req, res) {
     res.send('hello world!!')
 })
 
-//Addition --- subtask 2
+//Addition --- subtask 2.
 let add_two_numbers = function(number1,number2){
     result = number1 + number2
     return result
