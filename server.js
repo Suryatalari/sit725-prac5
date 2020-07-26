@@ -15,7 +15,7 @@ rest_api.get('/hello', function (req, res) {
 
 //Addition --- subtask 2
 let add_two_numbers = function(number1,number2){
-    result = number1 + number2;
+    result = number1 + number2
     return result
 }
 
@@ -25,7 +25,38 @@ rest_api.get('/addition',function(request, response){
     let number_2 = parseFloat(request.query.number2)
     console.log("The first number is:",number_1)
     console.log("The second number is:",number_2)
-    let Total = add_two_numbers(number_1,number_2);
+    let Total = add_two_numbers(number_1,number_2)
     console.log("sending the sum of 2 numbers",Total,"to the client.")   
     response.send('The total value after addition is:'+Total)
+})
+
+//Homework
+let hw = function(name,id){
+let accounts=[
+    {id:1,name:'alex',deposit:5},
+    {id:2,name:'sarah',deposit:5},
+    {id:3,name:'jim',deposit:15}
+    ]
+for(i=0; i<accounts.length; i++){
+    if(name == accounts[i].name && id == accounts[i].id) {
+        return accounts[i].deposit
+    }
+}
+return 0
+}
+
+// respond with deposit amount of the client.
+rest_api.get('/ATM',function(request, response){
+    let name = request.query.name
+    let id = parseInt(request.query.id)
+    console.log("The name given by the client is:",name)
+    console.log("The id given by the client is:",id)
+    let acc_deposit = hw(name,id)
+    if(acc_deposit == 0){
+        response.send("Please verify your name and id.")
+    }
+    else{
+    response.send("The name of the account holder, with account number:-"+ id +"is:-" + 
+    name + ". The deposit amount is=" + acc_deposit)
+    }
 })
