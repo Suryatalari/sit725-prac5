@@ -38,7 +38,7 @@ rest_api.get('/addition', function(request, response){
     response.send('The total value after addition is:'+Total);
 })
 
-//Homework
+//Homework URL: http://localhost:3000/
 let hw = function(name, id){
 //Accounts array with id, name and deposit values.
 let accounts = [
