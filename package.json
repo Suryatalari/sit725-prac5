@@ -1,7 +1,7 @@
 {
-  "name": "node-server",
+  "name": "data_retrieval",
   "version": "1.0.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "Data retrieval from MongoDB",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/Suryatalari/sit725-prac2.1#readme",
   "dependencies": {
-    "express": "*"
+    "cf-deployment-tracker-client": "^0.1.4",
+    "commander": "^6.0.0",
+    "express": "*",
+    "http-post": "^0.1.1",
+    "http-proxy": "^1.18.1",
+    "mongodb": "*"
   }
 }
