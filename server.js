@@ -17,14 +17,36 @@ webservice.get('/hello', function(req, res) {
     res.send('hello world!!');
 })
 
+webservice.get('/message',function(request,response){
+    let message = request.query.message;
+    insertMessage(message)
+    response.send('Added message'+message)
+})
+
+webservice.get('/Retrievemessages',function(request,response){
+    retrieveMessages(response);
+})
+
 require("cf-deployment-tracker-client").track();
 
-//DB connection
 const uri = "mongodb+srv://sit725:sit725@sit725.nzg9x.mongodb.net/Messagebox?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
+
+//DB connection
+let collectionMessage;
+
 client.connect(err => {
-  const collection = client.db("Messagebox").collection("messages");
-  // perform actions on the collection object
-  collection.insertOne({message:'Hello world'})
-  client.close();
-});
+  collectionMessage = client.db("Messagebox").collection("messages");
+})
+
+const insertMessage=(message)=>{
+    collectionMessage.insertOne({message:message})
+}
+
+const retrieveMessages=(response)=>{
+    collectionMessage.find().toArray(function(err,result){
+        if(err) throw err;
+        //console.log(result)
+        response.send(result);
+    })
+}
