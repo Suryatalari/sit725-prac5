@@ -1,26 +1,33 @@
+//Execute this function when index page render is complete.
 $(document).ready(function(){
     console.log("Ready")
 
     //Send messages from textfield to "/message" function, that sends them to mongoDB.
+    //Binding button.
     $('#messagebtn').click(()=>{
         let message = $('#mes').val();
         console.log(message);
         let data = {
             message
         }
+        //Sending data to /message function of server.js
         $.get('/message',data,function(){
         })
     })
 
-//Keep appending the data whenever new data is added.
-setInterval(function(){
-    $.get('/Retrievemessages',function(messages){
-        $('#messages_from_user').empty();
-        messages.forEach((DB_data)=>{
-            console.log(DB_data.message)
-            $('#messages_from_user').append('<div class="row">' + DB_data.message + '</div>')
+    //Updating retrieved messages every 1 second.
+    setInterval(function(){
+        //Activate /Retrievemessages to get data from DB
+        $.get('/Retrievemessages',function(messages){
+            //Clear the output field first
+            $('#messages_from_user').empty();
+            //For every message found in DB
+            messages.forEach((DB_data)=>{
+                console.log(DB_data.message)
+                //Display appended data.
+                $('#messages_from_user').append('<div class="row">' + DB_data.message + '</div>')
+            })
         })
-    })
-},1000)
+    },1000)
     
 })
