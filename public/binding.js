@@ -1,6 +1,6 @@
 //Execute this function when index page render is complete.
 $(document).ready(function(){
-    console.log("Ready")
+    console.log("Ready");
 
     //Send messages from textfield to "/message" function, that sends them to mongoDB.
     //Binding button.
@@ -23,9 +23,9 @@ $(document).ready(function(){
             $('#messages_from_user').empty();
             //For every message found in DB
             messages.forEach((DB_data)=>{
-                console.log(DB_data.message)
+                console.log(DB_data.message);
                 //Display appended data.
-                $('#messages_from_user').append('<div class="row">' + DB_data.message + '</div>')
+                $('#messages_from_user').append('<div class="row">' + DB_data.message + '</div>');
             })
         })
     },1000)

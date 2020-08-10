@@ -5,9 +5,9 @@ var webservice = express();
 const MongoClient = require('mongodb').MongoClient;
 
 // listen to a particular port
-var port = 8080
+var port = 8080;
 webservice.listen(port);
-console.log("Listening to port " + port)
+console.log("Listening to port " + port);
 
 //static files(html) --- subtask 1
 webservice.use(express.static(__dirname + '/public'));
@@ -22,8 +22,8 @@ webservice.get('/hello', function(req, res) {
 //This function sends the messages to mongoDB
 webservice.get('/message',function(request,response){
     let message = request.query.message;
-    insertMessage(message)
-    response.send('Added message'+message)
+    insertMessage(message);
+    response.send('Added message'+message);
 })
 
 //Activate retrieveMessages function to retrieve data from mongoDB
@@ -45,7 +45,7 @@ client.connect(err => {
 
 //This function inserts data to DB
 const insertMessage=(message)=>{
-    collectionMessage.insertOne({message:message})
+    collectionMessage.insertOne({message:message});
 }
 
 //This function retrieves data from DB
