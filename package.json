@@ -1,7 +1,7 @@
 {
-  "name": "data_retrieval",
+  "name": "ebay_website",
   "version": "1.0.0",
-  "description": "Data retrieval from MongoDB",
+  "description": "Items bought in an auction",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

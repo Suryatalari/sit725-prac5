@@ -1,58 +1,50 @@
-//Initializing and calling express application
-var express = require('express');
-var webservice = express();
-//Initialize MongoDB to send and retrieve data
-const MongoClient = require('mongodb').MongoClient;
+var express = require("express"),
+    app = express();
 
-// listen to a particular port
-var port = 8080;
-webservice.listen(port);
-console.log("Listening to port " + port);
+var port = process.env.PORT || 8080;
 
-//static files(html) --- subtask 1
-webservice.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
-// respond with "hello world", when a GET request is made to the hello page
-webservice.get('/hello', function(req, res) {
-    console.log("sending data to client");
-    res.send('hello world!!');
+app.get("/test", function (request, response) {
+  var user_name = request.query.user_name;
+  response.end("Hello " + user_name + "!");
+});
+
+app.listen(port);
+console.log("Listening on port ", port);
+
+//endpoint to serve the journals
+//endpoint to create a journal
+//endpoint to update a journal with comment
+/*
+app.post('/products',(req,res)=>{
+
 })
-
-// respond with "Added message" notification, when a GET request is made to the message page
-//This function sends the messages to mongoDB
-webservice.get('/message',function(request,response){
-    let message = request.query.message;
-    insertMessage(message);
-    response.send('Added message'+message);
+*/
+app.get('/pro',(req,res)=>{
+    let prod = [
+        {
+            Image: "some image",
+            Description: "Bike",
+            Date: 819278,
+            Seller_name: "Teju"
+        },
+        {
+            Image: "some image1",
+            Description: "Bike1",
+            Date: 8192718,
+            Seller_name: "Teju"
+        }
+    ]
+    res.send(prod)
 })
-
-//Activate retrieveMessages function to retrieve data from mongoDB
-webservice.get('/Retrievemessages',function(request,response){
-    retrieveMessages(response);
+/*
+app.put('/products',(req,res)=>{
+    
 })
+*/
+//connect to the db
+//DB to get the journal
+//Db function to create a journal
+//DB function to update a journal
 
-//mongoDB URI to access the remote database
-const uri = "mongodb+srv://sit725:sit725@sit725.nzg9x.mongodb.net/Messagebox?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
-
-let collectionMessage;
-
-//DB connection
-client.connect(err => {
-  collectionMessage = client.db("Messagebox").collection("messages");
-})
-
-//This function inserts data to DB
-const insertMessage=(message)=>{
-    collectionMessage.insertOne({message:message});
-}
-
-//This function retrieves data from DB
-const retrieveMessages=(response)=>{
-    collectionMessage.find().toArray(function(err,result){
-        if(err) throw err;
-        //console.log(result)
-        response.send(result);
-    })
-}

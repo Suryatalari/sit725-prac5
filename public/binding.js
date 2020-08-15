@@ -1,33 +1,51 @@
-//Execute this function when index page render is complete.
-$(document).ready(function(){
-    console.log("Ready");
+const displayproducts = (products) => {
+    let productspace = $('<div id="productspace" class="row col s12"></div>')
+    products.forEach(function(list) {
+        let listentry=$('<div class="row col s12 productspace">'+list.Description+'</div>')
+        productspace.append(listentry)
+    })
+    $('#eBayprod').append(productspace)
+}
 
-    //Send messages from textfield to "/message" function, that sends them to mongoDB.
-    //Binding button.
-    $('#messagebtn').click(()=>{
-        let message = $('#mes').val();
-        console.log(message);
-        let data = {
-            message
-        }
-        //Sending data to /message function of server.js
-        $.get('/message',data,function(){
-        })
+const getproducts=()=>{
+    $.get('/pro',(result)=>{
+        displayproducts(result)
+    })
+} 
+
+
+
+$(document).ready(function () {
+    console.log('Ready')
+
+    //bind the button
+    $('#testButton').click(testButtonFunction)
+
+    //test get call
+    $.get('/test?user_name="Fantastic User"', (result) => {
+        console.log(result)
     })
 
-    //Updating retrieved messages every 1 second.
-    setInterval(function(){
-        //Activate /Retrievemessages to get data from DB
-        $.get('/Retrievemessages',function(messages){
-            //Clear the output field first
-            $('#messages_from_user').empty();
-            //For every message found in DB
-            messages.forEach((DB_data)=>{
-                console.log(DB_data.message);
-                //Display appended data.
-                $('#messages_from_user').append('<div class="row">' + DB_data.message + '</div>');
-            })
-        })
-    },1000)
-    
+    //Map
+
+    var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([51.5, -0.09]).addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
+
+    //End of map    
+    //Once everything is ready, get the journals
+    getproducts()
 })
+
+const testButtonFunction = () => {
+    alert('Thank you for clicking')
+}
+
+
+
